@@ -2,6 +2,18 @@
 
 namespace CalebsAmazingSortEmporium
 {
+    /// <summary>
+    /// Simple program to demonstrate sorting a list of elements that are assigned a number and a color.
+    /// <br/>
+    /// They are sorted first by number, then by color where Red < Yellow < White.
+    /// </summary>
+    /// <remarks>
+    /// I did put some thought into abstracting more of the logic into separate functions and
+    /// classes, but I decided against it primarily because of the simplicity of the code when
+    /// read sequentially and that the code is meant to only run once with the program. If the
+    /// program were to be run multiple times, I would have abstracted more of the logic into
+    /// separate functions and classes.
+    /// </remarks>
     internal class Program
     {
         static void Main(string[] args)
@@ -67,7 +79,9 @@ namespace CalebsAmazingSortEmporium
             for (int i = 0; i < List.Count; i++)
             {
                 ColoredNumber curr_coloredNumber = List[i];
-                //I'm going to first write a switch statement that check the color of the current ColoredNumber object, curr_coloredNumber. This is because I know the possible colors are mutually exclusive
+                //I'm going to first write a switch statement that check the color of the
+                //current ColoredNumber object, curr_coloredNumber. This is because I know
+                //the possible colors are mutually exclusive
                 switch (curr_coloredNumber.Color)
                 {
                     case "Red":
@@ -103,7 +117,6 @@ namespace CalebsAmazingSortEmporium
 
             //Let's now print out the sorted List to Debug
             Debug.WriteLine("Sorted List:");
-            string previousMessage = "";
             for (int i = 0; i < SortedList.Count; i++)
             {
                 ColoredNumber item = SortedList[i];
@@ -111,18 +124,18 @@ namespace CalebsAmazingSortEmporium
                 string message = $"Index: {i} - Number: {item.Number} - Color: {item.Color}";
 
                 // Check if the current item and the previous or next item have the same number but different colors
-                bool isPreviousItemMatching = i > 0 && SortedList[i].Number == SortedList[i - 1].Number && SortedList[i].Color != SortedList[i - 1].Color;
-                bool isNextItemMatching = i < SortedList.Count - 1 && SortedList[i].Number == SortedList[i + 1].Number && SortedList[i].Color != SortedList[i + 1].Color;
+                bool isPreviousItemMatching = (i > 0)
+                                              && (SortedList[i].Number == SortedList[i - 1].Number)
+                                              && (SortedList[i].Color != SortedList[i - 1].Color);
+                bool isNextItemMatching = (i < SortedList.Count - 1)
+                                          && (SortedList[i].Number == SortedList[i + 1].Number)
+                                          && (SortedList[i].Color != SortedList[i + 1].Color);
 
                 // Check if the current item and the previous item have the same number but different colors
                 if (isPreviousItemMatching || isNextItemMatching)
                 {
                     message += " <-- These were sorted by color!";
-                    previousMessage += " <-- These were sorted by color!";
                 }
-
-                // Store the current message for the next iteration
-                previousMessage = message;
 
                 Debug.WriteLine(message);
                 ColoredNumber.SetConsoleColor(item.Color);
@@ -133,7 +146,8 @@ namespace CalebsAmazingSortEmporium
 
         }
         /// <summary>
-        /// Simple class to hold a number and a color. Makes it easier to bind the values together without having to create a dictionary
+        /// Simple class to hold a number and a color. Makes it easier to bind the values
+        /// together without having to create a dictionary.
         /// </summary>
         public class ColoredNumber
         {
@@ -182,7 +196,8 @@ namespace CalebsAmazingSortEmporium
         public static class ConsolePrettificationFunctions
         {
             /// <summary>
-            /// This method is used to print a box separator to the console. It's used to make the console output look nicer and to be able to more easily distinguish between different sections of the output
+            /// This method is used to print a box separator to the console. It's used to make the console
+            /// output look nicer and to be able to more easily distinguish between different sections of the output
             /// </summary>
             public static void PrintBoxSeparator()
             {
