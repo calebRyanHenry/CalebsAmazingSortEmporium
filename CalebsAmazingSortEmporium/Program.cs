@@ -76,6 +76,7 @@ namespace CalebsAmazingSortEmporium
             // 2. If the number is odd and Yellow, remove it from the List
             // 3. If the number is divisible by 3 and is White, remove it from the List
             //We'll use another for loop to do this
+            var newList = new List<ColoredNumber>();
             for (int i = 0; i < List.Count; i++)
             {
                 ColoredNumber curr_coloredNumber = List[i];
@@ -89,7 +90,8 @@ namespace CalebsAmazingSortEmporium
                         if (curr_coloredNumber.Number % 2 == 0)
                         {
                             //If the number is even, we need to remove it from the List
-                            List.Remove(curr_coloredNumber);
+                            continue;
+                            //List.Remove(curr_coloredNumber);
                         }
                         break;
                     case "Yellow":
@@ -97,7 +99,8 @@ namespace CalebsAmazingSortEmporium
                         if (curr_coloredNumber.Number % 2 == 1)
                         {
                             //If the number is odd, we need to remove it from the List
-                            List.Remove(curr_coloredNumber);
+                            continue;
+                            //List.Remove(curr_coloredNumber);
                         }
                         break;
                     case "White":
@@ -105,17 +108,20 @@ namespace CalebsAmazingSortEmporium
                         if (curr_coloredNumber.Number % 3 == 0)
                         {
                             //If the number is divisible by 3, we need to remove it from the List
-                            List.Remove(curr_coloredNumber);
+                            continue;
+                            //List.Remove(curr_coloredNumber);
                         }
                         break;
                 }
+                //If we've made it this far, we know that the current ColoredNumber object is not to be removed from the List. We can add it to the newList
+                newList.Add(curr_coloredNumber);
             }
 
-            //Lastly, we need to sort the List. We first sort the List by number, then by color where Red < Yellow < White
+            //Lastly, we need to sort the newList. We first sort the newList by number, then by color where Red < Yellow < White
             //We'll use the OrderBy method to do this
-            var SortedList = List.OrderBy(x => x.Number).ThenBy(x => ColoredNumber.GetColorOrder(x.Color)).ToList();
+            var SortedList = newList.OrderBy(x => x.Number).ThenBy(x => ColoredNumber.GetColorOrder(x.Color)).ToList();
 
-            //Let's now print out the sorted List to Debug
+            //Let's now print out the sorted newList to Debug
             Debug.WriteLine("Sorted List:");
             for (int i = 0; i < SortedList.Count; i++)
             {
